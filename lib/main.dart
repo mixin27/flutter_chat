@@ -1,8 +1,6 @@
 import 'package:chat_demo/colors.dart';
+import 'package:chat_demo/features/landing/screens/landing_screen.dart';
 import 'package:chat_demo/firebase_options.dart';
-import 'package:chat_demo/screens/mobile_layout_screen.dart';
-import 'package:chat_demo/screens/web_layout_screen.dart';
-import 'package:chat_demo/utils/responsive_layout.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -27,10 +25,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData.dark().copyWith(
         scaffoldBackgroundColor: backgroundColor,
       ),
-      home: const ResponsiveLayout(
-        mobileScreenLayout: MobileLayoutScreen(),
-        webScreenLayout: WebLayoutScreen(),
-      ),
+      home: const LandingScreen(),
     );
   }
 }
