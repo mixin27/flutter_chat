@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "26945532852",
+    "project_id": "chatt-demo-68380",
+    "storage_bucket": "chatt-demo-68380.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:26945532852:android:9933ea320153c09a2f38e1",
+        "android_client_info": {
+          "package_name": "dev.mixin27.chat_demo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "26945532852-jk93nv1k1vrt1sopsvs5lo905ph50t5m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBHnC8KF4TvpxPQcKZorOUKy3QGnRLv6po"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "26945532852-jk93nv1k1vrt1sopsvs5lo905ph50t5m.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
