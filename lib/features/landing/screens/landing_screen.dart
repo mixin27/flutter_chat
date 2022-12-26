@@ -1,9 +1,15 @@
 import 'package:chat_demo/colors.dart';
 import 'package:chat_demo/common/widgets/custom_button.dart';
+import 'package:chat_demo/features/auth/screens/login_screen.dart';
+import 'package:chat_demo/strings.dart';
 import 'package:flutter/material.dart';
 
 class LandingScreen extends StatelessWidget {
   const LandingScreen({super.key});
+
+  void navigateToLoginScreen(BuildContext context) {
+    Navigator.pushNamed(context, LoginScreen.routeName);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +41,7 @@ class LandingScreen extends StatelessWidget {
               const Padding(
                 padding: EdgeInsets.all(20.0),
                 child: Text(
-                  'Read our Privacy Policy. Tap "Agree and continue" to accept the Terms of Service.',
+                  AppStrings.agreementNotice,
                   style: TextStyle(color: greyColor),
                   textAlign: TextAlign.center,
                 ),
@@ -45,7 +51,7 @@ class LandingScreen extends StatelessWidget {
                 width: size.width * 0.75,
                 child: CustomButton(
                   text: "Accept And Continue".toUpperCase(),
-                  onTap: () {},
+                  onTap: () => navigateToLoginScreen(context),
                 ),
               ),
             ],

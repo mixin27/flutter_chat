@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "26945532852-458v0075skli174od4dscdrr2gmhirni.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "dev.mixin27.chat_demo",
+            "certificate_hash": "5eb147b05d1bb72c7b3aedf10b2f33c7d1f75847"
+          }
+        },
+        {
           "client_id": "26945532852-jk93nv1k1vrt1sopsvs5lo905ph50t5m.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -29,6 +37,13 @@
             {
               "client_id": "26945532852-jk93nv1k1vrt1sopsvs5lo905ph50t5m.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "26945532852-ep9d3j93l8d9aeqitb9rgd5g1v21ljf9.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "dev.mixin27.chatDemo"
+              }
             }
           ]
         }

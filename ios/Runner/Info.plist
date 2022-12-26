@@ -47,5 +47,13 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Photo Library use</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Camera use</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Microphone use</string>
+	<key>NSContactsUsageDescription</key>
+    <string>Reason we need access to the contact list</string>
 </dict>
 </plist>
