@@ -1,13 +1,14 @@
 import 'package:chat_demo/common/widgets/loader.dart';
 import 'package:chat_demo/features/chat/controller/chat_controller.dart';
 import 'package:chat_demo/models/message.dart';
-import 'package:chat_demo/widgets/my_message_card.dart';
-import 'package:chat_demo/widgets/sender_message_card.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
+
+import 'my_message_card.dart';
+import 'sender_message_card.dart';
 
 class ChatList extends ConsumerStatefulWidget {
   const ChatList({super.key, required this.receiverUserId});
@@ -51,11 +52,13 @@ class _ChatListState extends ConsumerState<ChatList> {
                 return MyMessageCard(
                   message: message.text,
                   date: timeSent,
+                  type: message.type,
                 );
               }
               return SenderMessageCard(
                 message: message.text,
                 date: timeSent,
+                type: message.type,
               );
             },
           );
