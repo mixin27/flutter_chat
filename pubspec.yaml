@@ -25,6 +25,8 @@ dependencies:
 
   # riverpod - state management and providers
   flutter_riverpod: ^2.1.3
+  uuid: ^3.0.7
+  intl: ^0.17.0
 
 dev_dependencies:
   flutter_test:

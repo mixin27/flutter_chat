@@ -1,5 +1,6 @@
 import 'package:chat_demo/colors.dart';
-import 'package:chat_demo/widgets/contact_list.dart';
+import 'package:chat_demo/features/chat/widgets/chat_list.dart';
+import 'package:chat_demo/features/chat/widgets/contact_list.dart';
 import 'package:chat_demo/widgets/web/web_chat_appbar.dart';
 import 'package:chat_demo/widgets/web/web_profile_bar.dart';
 import 'package:chat_demo/widgets/web/web_search_bar.dart';
@@ -49,9 +50,7 @@ class WebLayoutScreen extends StatelessWidget {
                 const SizedBox(height: 20),
 
                 // Chat list
-                Expanded(
-                  child: Container(),
-                ),
+                const Expanded(child: ChatList(receiverUserId: '')),
 
                 // Message input
                 Container(

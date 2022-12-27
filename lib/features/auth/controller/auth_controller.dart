@@ -53,4 +53,8 @@ class AuthController {
       profilePic: profilePic,
     );
   }
+
+  Stream<UserModel> userDataById(String userId) {
+    return authRepository.userData(userId);
+  }
 }

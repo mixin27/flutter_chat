@@ -1,6 +1,6 @@
 import 'package:chat_demo/colors.dart';
 import 'package:chat_demo/features/contact/screens/select_contacts_screen.dart';
-import 'package:chat_demo/widgets/contact_list.dart';
+import 'package:chat_demo/features/chat/widgets/contact_list.dart';
 import 'package:flutter/material.dart';
 
 class MobileLayoutScreen extends StatelessWidget {
