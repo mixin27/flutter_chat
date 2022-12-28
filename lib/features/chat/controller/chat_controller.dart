@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:chat_demo/common/enums/message_enum.dart';
+import 'package:chat_demo/common/providers/message_reply_provider.dart';
 import 'package:chat_demo/features/auth/controller/auth_controller.dart';
 import 'package:chat_demo/models/chat_contact.dart';
 import 'package:chat_demo/models/message.dart';
@@ -35,14 +36,17 @@ class ChatController {
     required String text,
     required String receiverUserId,
   }) {
+    final messageReply = ref.read(messageReplyProvider);
     ref.read(userDataProvider).whenData((value) {
       chatRepository.sendTextMessage(
         context,
         text: text,
         receiverUserId: receiverUserId,
         senderUser: value!,
+        messageReply: messageReply,
       );
     });
+    ref.read(messageReplyProvider.notifier).update((state) => null);
   }
 
   void sendFileMessage(
@@ -51,16 +55,17 @@ class ChatController {
     required String receiverUserId,
     required MessageEnum messageType,
   }) {
+    final messageReply = ref.read(messageReplyProvider);
     ref.read(userDataProvider).whenData(
-          (value) => chatRepository.sendFileMessage(
-            context,
-            file: file,
-            receiverUserId: receiverUserId,
-            senderUser: value!,
-            ref: ref,
-            messageType: messageType,
-          ),
+          (value) => chatRepository.sendFileMessage(context,
+              file: file,
+              receiverUserId: receiverUserId,
+              senderUser: value!,
+              ref: ref,
+              messageType: messageType,
+              messageReply: messageReply),
         );
+    ref.read(messageReplyProvider.notifier).update((state) => null);
   }
 
   void sendGifMessage(
@@ -74,13 +79,17 @@ class ChatController {
     String gifUrlPart = gifUrl.substring(gifUrlPartIndex);
     String newGifUrl = 'https://i.giphy.com/media/$gifUrlPart/200.gif';
 
+    final messageReply = ref.read(messageReplyProvider);
+
     ref.read(userDataProvider).whenData(
           (value) => chatRepository.sendGifMessage(
             context,
             gifUrl: newGifUrl,
             receiverUserId: receiverUserId,
             senderUser: value!,
+            messageReply: messageReply,
           ),
         );
+    ref.read(messageReplyProvider.notifier).update((state) => null);
   }
 }

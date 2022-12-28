@@ -2,8 +2,10 @@ import 'dart:io';
 
 import 'package:chat_demo/colors.dart';
 import 'package:chat_demo/common/enums/message_enum.dart';
+import 'package:chat_demo/common/providers/message_reply_provider.dart';
 import 'package:chat_demo/common/utils/utils.dart';
 import 'package:chat_demo/features/chat/controller/chat_controller.dart';
+import 'package:chat_demo/features/chat/widgets/message_reply_preview.dart';
 import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -163,8 +165,20 @@ class _BottomChatFieldState extends ConsumerState<BottomChatField> {
 
   @override
   Widget build(BuildContext context) {
+    final messageReply = ref.watch(messageReplyProvider);
+    final isShowMessageReply = messageReply != null;
+
+    ref.listen(messageReplyProvider, (previous, next) {
+      if (next == null) {
+        setState(() {
+          isShowSendButton = false;
+        });
+      }
+    });
+
     return Column(
       children: [
+        isShowMessageReply ? const MessageReplyPreview() : const SizedBox(),
         Row(
           children: [
             Expanded(

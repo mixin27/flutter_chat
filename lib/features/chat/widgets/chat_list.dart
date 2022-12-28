@@ -1,3 +1,5 @@
+import 'package:chat_demo/common/enums/message_enum.dart';
+import 'package:chat_demo/common/providers/message_reply_provider.dart';
 import 'package:chat_demo/common/widgets/loader.dart';
 import 'package:chat_demo/features/chat/controller/chat_controller.dart';
 import 'package:chat_demo/models/message.dart';
@@ -21,6 +23,16 @@ class ChatList extends ConsumerStatefulWidget {
 
 class _ChatListState extends ConsumerState<ChatList> {
   final ScrollController scrollController = ScrollController();
+
+  void onMessageSwipe(
+    String message,
+    bool isMe,
+    MessageEnum messageType,
+  ) {
+    ref
+        .read(messageReplyProvider.notifier)
+        .update((state) => MessageReply(message, isMe, messageType));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,12 +65,22 @@ class _ChatListState extends ConsumerState<ChatList> {
                   message: message.text,
                   date: timeSent,
                   type: message.type,
+                  repliedText: message.repliedMessage,
+                  userName: message.repliedTo,
+                  repliedMessageType: message.repliedMessageType,
+                  onSwipeLeft: () =>
+                      onMessageSwipe(message.text, true, message.type),
                 );
               }
               return SenderMessageCard(
                 message: message.text,
                 date: timeSent,
                 type: message.type,
+                repliedText: message.repliedMessage,
+                userName: message.repliedTo,
+                repliedMessageType: message.repliedMessageType,
+                onSwipeRight: () =>
+                    onMessageSwipe(message.text, false, message.type),
               );
             },
           );
