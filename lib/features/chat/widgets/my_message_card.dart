@@ -62,7 +62,7 @@ class MyMessageCard extends StatelessWidget {
                           bottom: 25,
                         ),
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       if (isReplying) ...[
                         Text(
