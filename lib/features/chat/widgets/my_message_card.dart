@@ -15,6 +15,7 @@ class MyMessageCard extends StatelessWidget {
     required this.repliedText,
     required this.userName,
     required this.repliedMessageType,
+    required this.isSeen,
   }) : super(key: key);
 
   final String message;
@@ -24,6 +25,7 @@ class MyMessageCard extends StatelessWidget {
   final String repliedText;
   final String userName;
   final MessageEnum repliedMessageType;
+  final bool isSeen;
 
   @override
   Widget build(BuildContext context) {
@@ -60,6 +62,7 @@ class MyMessageCard extends StatelessWidget {
                           bottom: 25,
                         ),
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       if (isReplying) ...[
                         Text(
@@ -103,10 +106,10 @@ class MyMessageCard extends StatelessWidget {
                       const SizedBox(
                         width: 5,
                       ),
-                      const Icon(
-                        Icons.done_all,
+                      Icon(
+                        isSeen ? Icons.done_all : Icons.done,
                         size: 20,
-                        color: Colors.white60,
+                        color: isSeen ? Colors.blue : Colors.white60,
                       ),
                     ],
                   ),
