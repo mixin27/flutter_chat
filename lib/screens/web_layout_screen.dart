@@ -1,6 +1,6 @@
 import 'package:chat_demo/colors.dart';
 import 'package:chat_demo/features/chat/widgets/chat_list.dart';
-import 'package:chat_demo/features/chat/widgets/contact_list.dart';
+import 'package:chat_demo/features/contact/widgets/contact_list.dart';
 import 'package:chat_demo/widgets/web/web_chat_appbar.dart';
 import 'package:chat_demo/widgets/web/web_profile_bar.dart';
 import 'package:chat_demo/widgets/web/web_search_bar.dart';

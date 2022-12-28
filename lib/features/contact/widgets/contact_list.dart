@@ -9,9 +9,6 @@ import 'package:intl/intl.dart';
 class ContactList extends ConsumerWidget {
   const ContactList({super.key});
 
-  // final String uid;
-  // final String name;
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Padding(
