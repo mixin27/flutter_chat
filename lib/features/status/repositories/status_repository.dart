@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:io';
 
 import 'package:chat_demo/common/repositories/firebase_storage_repository.dart';
@@ -55,18 +54,23 @@ class StatusRepository {
       }
 
       List<String> uidsWhonCanSee = [];
-      for (var contact in contacts) {
-        var userDataFirestore = await firestore
-            .collection('users')
-            .where(
-              'phoneNumber',
-              isEqualTo: contact.phones[0].number.replaceAll(' ', ''),
-            )
-            .get();
+      final length = contacts.length;
+      for (var i = 0; i < length; i++) {
+        if (contacts[i].phones.isNotEmpty) {
+          var userDataFirestore = await firestore
+              .collection('users')
+              .where(
+                'phoneNumber',
+                isEqualTo:
+                    contacts[i].phones[0].normalizedNumber.replaceAll(' ', ''),
+              )
+              .get();
 
-        if (userDataFirestore.docs.isNotEmpty) {
-          var userData = UserModel.fromMap(userDataFirestore.docs.first.data());
-          uidsWhonCanSee.add(userData.uid);
+          if (userDataFirestore.docs.isNotEmpty) {
+            var userData =
+                UserModel.fromMap(userDataFirestore.docs.first.data());
+            uidsWhonCanSee.add(userData.uid);
+          }
         }
       }
 
@@ -103,7 +107,9 @@ class StatusRepository {
 
       await firestore.collection('status').doc(statusId).set(status.toMap());
     } catch (e) {
-      log(e.toString());
+      if (kDebugMode) {
+        print(e);
+      }
       showSnackbar(context: context, content: e.toString());
     }
   }
@@ -119,22 +125,28 @@ class StatusRepository {
 
       final length = contacts.length;
       for (var i = 0; i < length; i++) {
-        var statusesSanpshot = await firestore
-            .collection('status')
-            .where('phoneNumber',
-                isEqualTo: contacts[i].phones.first.number.replaceAll(' ', ''))
-            .where(
-              'createdAt',
-              isGreaterThan: DateTime.now()
-                  .subtract(const Duration(hours: 24))
-                  .millisecondsSinceEpoch,
-            )
-            .get();
+        if (contacts[i].phones.isNotEmpty) {
+          var statusesSanpshot = await firestore
+              .collection('status')
+              .where('phoneNumber',
+                  isEqualTo: contacts[i]
+                      .phones
+                      .first
+                      .normalizedNumber
+                      .replaceAll(' ', ''))
+              .where(
+                'createdAt',
+                isGreaterThan: DateTime.now()
+                    .subtract(const Duration(hours: 24))
+                    .millisecondsSinceEpoch,
+              )
+              .get();
 
-        for (var temp in statusesSanpshot.docs) {
-          StatusModel tempStatus = StatusModel.fromMap(temp.data());
-          if (tempStatus.whoCanSee.contains(firebaseAuth.currentUser!.uid)) {
-            statusData.add(tempStatus);
+          for (var temp in statusesSanpshot.docs) {
+            StatusModel tempStatus = StatusModel.fromMap(temp.data());
+            if (tempStatus.whoCanSee.contains(firebaseAuth.currentUser!.uid)) {
+              statusData.add(tempStatus);
+            }
           }
         }
       }
