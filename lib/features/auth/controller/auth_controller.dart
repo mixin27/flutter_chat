@@ -25,6 +25,10 @@ class AuthController {
     return await authRepository.getCurrentUserData();
   }
 
+  Future<UserModel?> getUserDataById(String id) async {
+    return await authRepository.getUserDataById(id);
+  }
+
   void signInWithPhone(BuildContext context, {required String phoneNumber}) {
     authRepository.signInWithPhone(context, phoneNumber: phoneNumber);
   }

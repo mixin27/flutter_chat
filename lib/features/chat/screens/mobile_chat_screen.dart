@@ -10,39 +10,47 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 class MobileChatScreen extends ConsumerWidget {
   static const String routeName = '/mobile-chat-screen';
 
-  const MobileChatScreen({super.key, required this.name, required this.uid});
+  const MobileChatScreen({
+    super.key,
+    required this.name,
+    required this.uid,
+    required this.isGroupChat,
+  });
 
   final String name;
   final String uid;
+  final bool isGroupChat;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: appBarColor,
-        title: StreamBuilder<UserModel>(
-          stream: ref.read(authControllerProvider).userDataById(uid),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const CupertinoActivityIndicator();
-            }
+        title: isGroupChat
+            ? Text(name)
+            : StreamBuilder<UserModel>(
+                stream: ref.read(authControllerProvider).userDataById(uid),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const CupertinoActivityIndicator();
+                  }
 
-            // if (snapshot.data == null) return const SizedBox();
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(name),
-                Text(
-                  snapshot.data!.isOnline ? 'online' : 'offline',
-                  style: const TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.normal,
-                  ),
-                ),
-              ],
-            );
-          },
-        ),
+                  // if (snapshot.data == null) return const SizedBox();
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(name),
+                      Text(
+                        snapshot.data!.isOnline ? 'online' : 'offline',
+                        style: const TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.normal,
+                        ),
+                      ),
+                    ],
+                  );
+                },
+              ),
         centerTitle: false,
         actions: [
           IconButton(
@@ -61,8 +69,16 @@ class MobileChatScreen extends ConsumerWidget {
       ),
       body: Column(
         children: [
-          Expanded(child: ChatList(receiverUserId: uid)),
-          BottomChatField(receiverUserId: uid),
+          Expanded(
+            child: ChatList(
+              receiverUserId: uid,
+              isGroupChat: isGroupChat,
+            ),
+          ),
+          BottomChatField(
+            receiverUserId: uid,
+            isGroupChat: isGroupChat,
+          ),
         ],
       ),
     );

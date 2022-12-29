@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_contacts/contact.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final geContactsProvider = FutureProvider<List<Contact>>((ref) async {
+final getContactsProvider = FutureProvider<List<Contact>>((ref) async {
   final selectContactsRepository = ref.watch(selectContactsRepositoryProvider);
   return selectContactsRepository.getContacts();
 });

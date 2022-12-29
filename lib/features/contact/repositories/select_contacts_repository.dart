@@ -53,6 +53,7 @@ class SelectContactsRepository {
               arguments: {
                 'name': userData.name,
                 'uid': userData.uid,
+                'isGroupChat': false,
               },
             );
           });

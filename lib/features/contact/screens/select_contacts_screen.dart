@@ -36,7 +36,7 @@ class SelectContactsScreen extends ConsumerWidget {
           ),
         ],
       ),
-      body: ref.watch(geContactsProvider).when(
+      body: ref.watch(getContactsProvider).when(
             data: (data) => ListView.builder(
               itemCount: data.length,
               itemBuilder: (context, index) {

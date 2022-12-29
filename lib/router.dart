@@ -6,6 +6,7 @@ import 'package:chat_demo/features/auth/screens/opt_screen.dart';
 import 'package:chat_demo/features/auth/screens/user_information_screen.dart';
 import 'package:chat_demo/features/contact/screens/select_contacts_screen.dart';
 import 'package:chat_demo/features/chat/screens/mobile_chat_screen.dart';
+import 'package:chat_demo/features/group/screens/create_group_screen.dart';
 import 'package:chat_demo/features/status/screens/confirm_status_screen.dart';
 import 'package:chat_demo/features/status/screens/status_screen.dart';
 import 'package:chat_demo/models/status_model.dart';
@@ -32,10 +33,15 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       );
     case MobileChatScreen.routeName:
       final arguments = settings.arguments as Map<String, dynamic>;
-      final name = arguments['name'];
-      final uid = arguments['uid'];
+      final name = arguments['name'] as String;
+      final uid = arguments['uid'] as String;
+      final isGroupChat = arguments['isGroupChat'] as bool;
       return MaterialPageRoute(
-        builder: (context) => MobileChatScreen(name: name, uid: uid),
+        builder: (context) => MobileChatScreen(
+          name: name,
+          uid: uid,
+          isGroupChat: isGroupChat,
+        ),
       );
     case ConfirmStatusScreen.routeName:
       final file = settings.arguments as File;
@@ -46,6 +52,10 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       final status = settings.arguments as StatusModel;
       return MaterialPageRoute(
         builder: (context) => StatusScreen(status: status),
+      );
+    case CreateGroupScreen.routeName:
+      return MaterialPageRoute(
+        builder: (context) => const CreateGroupScreen(),
       );
     default:
       return MaterialPageRoute(

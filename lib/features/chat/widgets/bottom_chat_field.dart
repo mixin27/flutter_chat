@@ -18,9 +18,11 @@ class BottomChatField extends ConsumerStatefulWidget {
   const BottomChatField({
     Key? key,
     required this.receiverUserId,
+    required this.isGroupChat,
   }) : super(key: key);
 
   final String receiverUserId;
+  final bool isGroupChat;
 
   @override
   ConsumerState<BottomChatField> createState() => _BottomChatFieldState();
@@ -61,6 +63,7 @@ class _BottomChatFieldState extends ConsumerState<BottomChatField> {
             context,
             text: _messageController.text.trim(),
             receiverUserId: widget.receiverUserId,
+            isGroupChat: widget.isGroupChat,
           );
 
       setState(() {
@@ -95,6 +98,7 @@ class _BottomChatFieldState extends ConsumerState<BottomChatField> {
           file: file,
           receiverUserId: widget.receiverUserId,
           messageType: messageType,
+          isGroupChat: widget.isGroupChat,
         );
   }
 
@@ -106,6 +110,7 @@ class _BottomChatFieldState extends ConsumerState<BottomChatField> {
           context,
           gifUrl: gifUrl,
           receiverUserId: widget.receiverUserId,
+          isGroupChat: widget.isGroupChat,
         );
   }
 

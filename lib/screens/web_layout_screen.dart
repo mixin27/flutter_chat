@@ -50,7 +50,12 @@ class WebLayoutScreen extends StatelessWidget {
                 const SizedBox(height: 20),
 
                 // Chat list
-                const Expanded(child: ChatList(receiverUserId: '')),
+                const Expanded(
+                  child: ChatList(
+                    receiverUserId: '',
+                    isGroupChat: false,
+                  ),
+                ),
 
                 // Message input
                 Container(

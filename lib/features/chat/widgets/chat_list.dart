@@ -13,9 +13,14 @@ import 'my_message_card.dart';
 import 'sender_message_card.dart';
 
 class ChatList extends ConsumerStatefulWidget {
-  const ChatList({super.key, required this.receiverUserId});
+  const ChatList({
+    super.key,
+    required this.receiverUserId,
+    required this.isGroupChat,
+  });
 
   final String receiverUserId;
+  final bool isGroupChat;
 
   @override
   ConsumerState<ChatList> createState() => _ChatListState();
@@ -23,7 +28,6 @@ class ChatList extends ConsumerStatefulWidget {
 
 class _ChatListState extends ConsumerState<ChatList> {
   final ScrollController scrollController = ScrollController();
-
   void onMessageSwipe(
     String message,
     bool isMe,
@@ -37,8 +41,13 @@ class _ChatListState extends ConsumerState<ChatList> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<List<Message>>(
-        stream:
-            ref.read(chatControllerProvider).chatStream(widget.receiverUserId),
+        stream: widget.isGroupChat
+            ? ref
+                .read(chatControllerProvider)
+                .chatGroupStream(widget.receiverUserId)
+            : ref
+                .read(chatControllerProvider)
+                .chatStream(widget.receiverUserId),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Loader();
@@ -81,15 +90,33 @@ class _ChatListState extends ConsumerState<ChatList> {
                       onMessageSwipe(message.text, true, message.type),
                 );
               }
-              return SenderMessageCard(
-                message: message.text,
-                date: timeSent,
-                type: message.type,
-                repliedText: message.repliedMessage,
-                userName: message.repliedTo,
-                repliedMessageType: message.repliedMessageType,
-                onSwipeRight: () =>
-                    onMessageSwipe(message.text, false, message.type),
+
+              return Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  // if (widget.isGroupChat)
+                  Padding(
+                    padding: const EdgeInsets.only(left: 5.0),
+                    child: CircleAvatar(
+                      radius: 10,
+                      backgroundImage: NetworkImage(
+                        message.senderProfilePic,
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: SenderMessageCard(
+                      message: message.text,
+                      date: timeSent,
+                      type: message.type,
+                      repliedText: message.repliedMessage,
+                      userName: message.repliedTo,
+                      repliedMessageType: message.repliedMessageType,
+                      onSwipeRight: () =>
+                          onMessageSwipe(message.text, false, message.type),
+                    ),
+                  ),
+                ],
               );
             },
           );

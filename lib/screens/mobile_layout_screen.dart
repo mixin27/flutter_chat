@@ -5,6 +5,7 @@ import 'package:chat_demo/common/utils/utils.dart';
 import 'package:chat_demo/features/auth/controller/auth_controller.dart';
 import 'package:chat_demo/features/contact/screens/select_contacts_screen.dart';
 import 'package:chat_demo/features/contact/widgets/contact_list.dart';
+import 'package:chat_demo/features/group/screens/create_group_screen.dart';
 import 'package:chat_demo/features/status/screens/confirm_status_screen.dart';
 import 'package:chat_demo/features/status/screens/status_contacts_screen.dart';
 import 'package:flutter/material.dart';
@@ -70,9 +71,17 @@ class _MobileLayoutScreenState extends ConsumerState<MobileLayoutScreen>
             onPressed: () {},
             icon: const Icon(Icons.search, color: Colors.grey),
           ),
-          IconButton(
-            onPressed: () {},
+          PopupMenuButton(
             icon: const Icon(Icons.more_vert, color: Colors.grey),
+            itemBuilder: (context) => [
+              PopupMenuItem(
+                child: const Text('Create Group'),
+                onTap: () => Future(
+                  () =>
+                      Navigator.pushNamed(context, CreateGroupScreen.routeName),
+                ),
+              ),
+            ],
           ),
         ],
         bottom: TabBar(
